@@ -21,7 +21,7 @@ def dmdelete(token, channel):
         latest = dmhistory["messages"][-1]['ts']
         for i in dmhistory["messages"]:
             requests.post(
-                "https://slack.com/api/chat.delete?ts=" + i["ts"] + "&as_user=true", params=params
+                "https://slack.com/api/chat.delete?ts=" + i["ts"], params=params
             )
             time.sleep(1)
         if not dmhistory["has_more"]:
