@@ -1,4 +1,4 @@
-# slack-dm-purge
+# 🔥 slack-dm-purge 🔥
 
 ## Motivation
 [Given the updated Slack Policy](https://thenextweb.com/apps/2018/03/22/slacks-new-policy-lets-bosses-read-employees-dms-without-consent/) which grants customers on Slack's Plus and Enterprise Grid plans access to a self-service tool for exporting data from all public and private channels, having an option to delete your entire DM history is something I feel is needed.
@@ -24,6 +24,8 @@ This handy script allows you automatically to delete all your DMs given you have
 `./slack-dm-purge.py`
 
 This script will delete **_all_** your DMs.
+
+Note: The env var `SLACK_TOKEN` needs to be set
 
 ## Alternatives
 
