@@ -46,18 +46,18 @@ def dm_list(token):
 
 
 def check_env_var_token(slack_token_env_var):
-    if slack_token_env_var in os.environ
-      return os.environ.get(slack_token_env_var)
+    if slack_token_env_var in os.environ:
+        return os.environ.get(slack_token_env_var)
     else:
-      return None
+        return None
 
 
 if __name__ == "__main__":
     slack_token_env_var = "SLACK_TOKEN"
     slack_token = check_env_var_token(slack_token_env_var)
     if slack_token is None:
-      print("{} env var not set".slack_token_env_var)
-      sys.exit(1)
+        print("{} env var not set".slack_token_env_var)
+        sys.exit(1)
     channels = dm_list(token)
     for channel in channels:
         dm_delete(token, channel)
