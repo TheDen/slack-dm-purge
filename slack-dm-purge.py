@@ -4,50 +4,60 @@ import requests
 import time
 
 
-def dmdelete(token, channel):
+def dm_delete(token, channel):
     params = {"channel": channel, "token": token}
-    latest = '0'
+    latest = "0"
 
     while True:
         try:
             print(latest)
-            response = requests.get(f"https://slack.com/api/im.history?latest=" + latest + "&count=1000", params=params)
+            response = requests.get(
+                f"https://slack.com/api/im.history?latest=" + latest + "&count=1000",
+                params=params,
+            )
         except requests.exceptions.RequestException as e:
             print(e)
 
-        dmhistory = response.json()
-        if not dmhistory["messages"]:
+        dm_history = response.json()
+        if not dm_history["messages"]:
             break
-        latest = dmhistory["messages"][-1]['ts']
-        for i in dmhistory["messages"]:
+        latest = dm_history["messages"][-1]["ts"]
+        for i in dm_history["messages"]:
             requests.post(
                 "https://slack.com/api/chat.delete?ts=" + i["ts"], params=params
             )
             time.sleep(1)
-        if not dmhistory["has_more"]:
+        if not dm_history["has_more"]:
             break
 
 
-def dmlist(token):
+def dm_list(token):
     params = {"token": token}
     try:
         response = requests.get("https://slack.com/api/im.list", params=params)
     except requests.exceptions.RequestException as e:
         print(e)
 
-    dmdata = response.json()
-    dmlist = []
-    for i in dmdata["ims"]:
-        dmlist.append(i["id"])
-    return dmlist
+    dm_data = response.json()
+    dm_list = []
+    for i in dm_data["ims"]:
+        dm_list.append(i["id"])
+    return dm_list
 
 
-def main():
-    token = "Your Slack Token"
-    channels = dmlist(token)
-    for channel in channels:
-        dmdelete(token, channel)
+def check_env_var_token(slack_token_env_var):
+    if slack_token_env_var in os.environ
+      return os.environ.get(slack_token_env_var)
+    else:
+      return None
 
 
 if __name__ == "__main__":
-    main()
+    slack_token_env_var = "SLACK_TOKEN"
+    slack_token = check_env_var_token(slack_token_env_var)
+    if slack_token is None:
+      print("{} env var not set".slack_token_env_var)
+      sys.exit(1)
+    channels = dm_list(token)
+    for channel in channels:
+        dm_delete(token, channel)
