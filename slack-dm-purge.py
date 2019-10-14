@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import os
+import sys
 import requests
 import time
 
@@ -56,7 +58,7 @@ if __name__ == "__main__":
     slack_token_env_var = "SLACK_TOKEN"
     slack_token = check_env_var_token(slack_token_env_var)
     if slack_token is None:
-        print("{} env var not set".slack_token_env_var)
+        print("{} env var not set".format(slack_token_env_var))
         sys.exit(1)
     channels = dm_list(token)
     for channel in channels:
